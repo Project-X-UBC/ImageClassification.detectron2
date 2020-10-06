@@ -59,7 +59,7 @@ class ClsNet(nn.Module):
         images = ImageList.from_tensors(images)  # Do not need size_divisibility
         return images
 
-    def forward_d2(self, batched_inputs):
+    def forward(self, batched_inputs):
         images = self.preprocess_image(batched_inputs)
         gt_labels = [x['label'] for x in batched_inputs]
         gt_labels = torch.as_tensor(gt_labels, dtype=torch.long).to(self.device)
@@ -70,7 +70,7 @@ class ClsNet(nn.Module):
             losses = self.losses(gt_labels, features)
             return losses
         else:
-            results = self.inferece(features)
+            results = self.inference(features)
             processed_results = []
             for results_per_image, input_per_image, image_size in zip(
                 results, batched_inputs, images.image_sizes
@@ -78,12 +78,12 @@ class ClsNet(nn.Module):
                 processed_results.append({"pred_classes": results_per_image})
             return processed_results
 
-    def forward(self, images):
+    def forward_imgnet(self, images):
         features = self.bottom_up(images)
         return features["linear"]
 
 
-    def inferece(self, features, topk=1):
+    def inference(self, features, topk=1):
         _, pred = features[0].topk(topk, 1, True, True)
         return pred
         

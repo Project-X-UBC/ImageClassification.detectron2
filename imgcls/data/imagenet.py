@@ -31,8 +31,8 @@ def register_imagenet_instances(name, metadata, json_file):
 
 # Update info
 _root = os.getenv("DETECTRON2_DATASETS", "datasets")
-imagenet_train_annotation_file = osp.join(_root, "ImageNet2012/imagenet_detectron2_train.json")
-imagenet_val_annotation_file = osp.join(_root, "ImageNet2012/imagenet_detectron2_val.json")
+imagenet_train_annotation_file = osp.join(_root, "imagenet_detectron2_train.json")
+imagenet_val_annotation_file = osp.join(_root, "imagenet_detectron2_val.json")
 
 # Register into DatasetCatalog
 register_imagenet_instances("imagenet_train", {}, imagenet_train_annotation_file)

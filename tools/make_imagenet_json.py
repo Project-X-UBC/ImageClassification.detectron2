@@ -7,24 +7,24 @@
 @Description    : 
 '''
 
+import re
 import os
 import os.path as osp
-from PIL import Image
 import argparse
 import json
 from tqdm import tqdm
-
+import numpy as np
+import cv2
 
 IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
 
 ARCHIVE_META = {
-    'train': 'ILSVRC2012_img_train',
-    'val': 'ILSVRC2012_img_val',
+    'train': 'train_set',
+    'val': 'test_set',
 }
 
 
 def parse_args():
-    
     parser = argparse.ArgumentParser(description="Make imagenet dataset d2-style")
     parser.add_argument('--root', type=str, help="ImageNet root directory")
     parser.add_argument('--save', type=str, help="Result saving directory")
@@ -32,7 +32,7 @@ def parse_args():
     args = parser.parse_args()
     if not osp.exists(args.save):
         os.makedirs(args.save)
-    
+
     assert osp.exists(osp.join(args.root, ARCHIVE_META['train']))
     assert osp.exists(osp.join(args.root, ARCHIVE_META['val']))
 
@@ -60,48 +60,38 @@ def is_image_file(filename):
     return has_file_allowed_extension(filename, IMG_EXTENSIONS)
 
 
-def accumulate_imagenet_json(image_root):
-
+def accumulate_imagenet_json(image_root, phase):
     # accumulate infos
-    classes = [d.name for d in os.scandir(image_root) if d.is_dir()]
-    classes.sort()
+    classes = [i for i in range(0, 17)]
     class_to_idx = {classes[i]: i for i in range(len(classes))}
 
+    json_file = osp.join(image_root, 'labels_' + phase + '.txt')
+    with open(json_file) as f:
+        imgs_anns = json.load(f)
+
     dataset_dicts = []
-    image_id = 1
-    for target_class in tqdm(sorted(class_to_idx.keys())):
-        class_index = class_to_idx[target_class]
-        target_dir = os.path.join(image_root, target_class)
-        if not os.path.isdir(target_dir):
-            continue
-        for root, _, fnames in sorted(os.walk(target_dir, followlinks=True)):
-            for fname in sorted(fnames):
-                path = os.path.join(root, fname)
-                if is_image_file(path):
-                    # NOTE PIl output order changed
-                    # height, width = Image.open(path).size
-                    # Be care for this: varies with different input
-                    # Add
-                    record = {
-                        "file_name": osp.abspath(path),   # Using abs path, ignore image root, less flexibility
-                        # "width": width,
-                        # "height": height,
-                        "image_id": image_id,
-                        "label": class_index,
-                        "class": target_class,
-                    }
-                    dataset_dicts.append(record)
-                    image_id += 1
+    for idx, v in enumerate(tqdm(imgs_anns.keys())):
+        # FIXME: fake data has images_test\\ or images_train\\ appended in front of keys
+        key = re.sub("images_\w{4,5}\\\\", "", v)
+        filename = osp.join(image_root, phase + '_set', key)
+        # height, width = cv2.imread(filename).shape[:2]
+
+        record = {
+            "file_name": osp.abspath(filename),  # Using abs path, ignore image root, less flexibility
+            "image_id": idx,  # fake data only has a max of 1 transformed grid segment
+            "label": imgs_anns[v]["index"],
+            "class": imgs_anns[v]["index"]  # FIXME: can probs get rid of one of them
+        }
+        dataset_dicts.append(record)
 
     return dataset_dicts, class_to_idx
 
 
 def main(args):
-
     # Accumulate train
-    dataset_dicts_train, class_to_idx = accumulate_imagenet_json(osp.join(args.root, ARCHIVE_META['train']))
+    dataset_dicts_train, class_to_idx = accumulate_imagenet_json(args.root, phase='train')
     # Accumulate val
-    dataset_dicts_val, _ = accumulate_imagenet_json(osp.join(args.root, ARCHIVE_META['val']))
+    dataset_dicts_val, _ = accumulate_imagenet_json(args.root, phase='test')
     # Save
     with open(osp.join(args.save, "imagenet_detectron2_train.json"), "w") as w_obj:
         json.dump(dataset_dicts_train, w_obj)
@@ -109,7 +99,7 @@ def main(args):
         json.dump(dataset_dicts_val, w_obj)
     with open(osp.join(args.save, "class_to_idx.json"), "w") as w_obj:
         json.dump(class_to_idx, w_obj)
-    
+
 
 if __name__ == "__main__":
     args = parse_args()
