@@ -34,6 +34,7 @@ class Trainer(DefaultTrainer):
     are working on a new research project. In that case you can use the cleaner
     "SimpleTrainer", or write your own training loop. You can use
     "tools/plain_train_net.py" as an example.
+    https://detectron2.readthedocs.io/_modules/detectron2/engine/defaults.html#DefaultTrainer
     """
     @classmethod
     def build_test_loader(cls, cfg, dataset_name):
