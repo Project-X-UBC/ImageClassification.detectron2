@@ -57,6 +57,8 @@ class Trainer(DefaultTrainer):
 
     @classmethod
     def test_with_TTA(cls, cfg, model):
+        # Test Time Augmentation explanation about it here
+        # https://towardsdatascience.com/test-time-augmentation-tta-and-how-to-perform-it-with-keras-4ac19b67fb4d
         logger = logging.getLogger("detectron2.trainer")
         # In the end of training, run an evaluation with TTA
         # Only support some R-CNN models.
@@ -65,7 +67,7 @@ class Trainer(DefaultTrainer):
         evaluators = [
             cls.build_evaluator(
                 cfg, name, output_folder=os.path.join(
-                    cfg.OUTPUT_DIR, "inference_TTA")  # check if OUTPUT_DIR is defined
+                    cfg.OUTPUT_DIR, "inference_TTA")  # TODO: check if OUTPUT_DIR is defined
             )
             for name in cfg.DATASETS.TEST
         ]
@@ -117,11 +119,12 @@ def main(args):
 if __name__ == "__main__":
     args = default_argument_parser().parse_args()
     print("Command Line Args: ", args)
+    # launch multi-gpu or distributed training
     launch(
         main,
         args.num_gpus,
         num_machines=args.num_machines,
         machine_rank=args.machine_rank,
-        dist_url=args.dist_url,
+        dist_url="auto",
         args=(args,),
     )
