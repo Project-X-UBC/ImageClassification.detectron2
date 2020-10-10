@@ -7,7 +7,6 @@
 @Description    : 
 '''
 
-
 import itertools
 import json
 import logging
@@ -39,11 +38,9 @@ class ImageNetEvaluator(DatasetEvaluator):
 
     def process(self, inputs, outputs):
         for input, output in zip(inputs, outputs):
-            prediction = {"image_id": input["image_id"]}
-            prediction["gt"] = input["label"]
-            prediction["pred"] = output["pred_classes"].to(self._cpu_device)
+            prediction = {"image_id": input["image_id"], "gt": input["label"],
+                          "pred": output["pred_classes"].to(self._cpu_device)}
             self._predictions.append(prediction)
-
 
     def evaluate(self):
         if self._distributed:

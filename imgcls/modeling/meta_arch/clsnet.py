@@ -42,7 +42,7 @@ class ClsNet(nn.Module):
         self.in_features = cfg.MODEL.CLSNET.IN_FEATURES
         self.bottom_up = build_backbone(cfg)
         self.criterion = nn.CrossEntropyLoss()
-        
+
         self.register_buffer("pixel_mean", torch.Tensor(cfg.MODEL.PIXEL_MEAN).view(-1, 1, 1))
         self.register_buffer("pixel_std", torch.Tensor(cfg.MODEL.PIXEL_STD).view(-1, 1, 1))
 
@@ -65,7 +65,7 @@ class ClsNet(nn.Module):
         gt_labels = torch.as_tensor(gt_labels, dtype=torch.long).to(self.device)
         features = self.bottom_up(images.tensor)
         features = [features[f] for f in self.in_features]
-        
+
         if self.training:
             losses = self.losses(gt_labels, features)
             return losses
@@ -73,7 +73,7 @@ class ClsNet(nn.Module):
             results = self.inference(features)
             processed_results = []
             for results_per_image, input_per_image, image_size in zip(
-                results, batched_inputs, images.image_sizes
+                    results, batched_inputs, images.image_sizes
             ):
                 processed_results.append({"pred_classes": results_per_image})
             return processed_results
@@ -82,12 +82,9 @@ class ClsNet(nn.Module):
         features = self.bottom_up(images)
         return features["linear"]
 
-
     def inference(self, features, topk=1):
         _, pred = features[0].topk(topk, 1, True, True)
         return pred
-        
 
     def losses(self, gt_labels, features):
         return {"loss_cls": self.criterion(features[0], gt_labels)}
-

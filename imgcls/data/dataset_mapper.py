@@ -9,9 +9,7 @@
 
 from . import classification_utils as c_utils
 
-
 from detectron2.data.dataset_mapper import DatasetMapper as _DatasetMapper
-
 
 
 class DatasetMapper(_DatasetMapper):

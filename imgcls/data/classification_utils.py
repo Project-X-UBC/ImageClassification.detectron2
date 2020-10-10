@@ -23,8 +23,7 @@ def build_transform_gen(cfg, is_train):
     input_size = cfg.MODEL.CLSNET.INPUT_SIZE
 
     logger = logging.getLogger("detectron2.data.classification_utils")
-    tfm_gens = []
-    tfm_gens.append(T.Resize((input_size, input_size)))
+    tfm_gens = [T.Resize((input_size, input_size))]
     if is_train:
         # tfm_gens.append(T.RandomContrast(0.5, 1.5))
         # tfm_gens.append(T.RandomBrightness(0.5, 1.5))

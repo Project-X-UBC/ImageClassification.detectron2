@@ -88,6 +88,8 @@ def accumulate_imagenet_json(image_root, phase):
 
 
 def main(args):
+    # TODO: use GroupKFold https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html
+    # to split the train/test/val datasets
     # Accumulate train
     dataset_dicts_train, class_to_idx = accumulate_imagenet_json(args.root, phase='train')
     # Accumulate val

@@ -27,6 +27,7 @@ import imgcls.modeling
 from imgcls.data import DatasetMapper
 from imgcls.evaluation.imagenet_evaluation import ImageNetEvaluator
 
+
 class Trainer(DefaultTrainer):
     """
     We use the "DefaultTrainer" which contains pre-defined default logic for
@@ -36,6 +37,7 @@ class Trainer(DefaultTrainer):
     "tools/plain_train_net.py" as an example.
     https://detectron2.readthedocs.io/_modules/detectron2/engine/defaults.html#DefaultTrainer
     """
+
     @classmethod
     def build_test_loader(cls, cfg, dataset_name):
         return build_detection_test_loader(cfg, dataset_name, mapper=DatasetMapper(cfg, False))
@@ -48,25 +50,10 @@ class Trainer(DefaultTrainer):
     def build_evaluator(cls, cfg, dataset_name, output_folder=None):
         """
         Create evaluator(s) for a given dataset.
-        This uses the special metadata "evaluator_type" associated with each builtin dataset.
-        For your own dataset, you can simply create an evaluator manually in your
-        script and do not have to worry about the hacky if-else logic here.
         """
         if output_folder is None:
             output_folder = os.path.join(cfg.OUTPUT_DIR, "inference")
-        evaluator_list = []
-        evaluator_type = MetadataCatalog.get(dataset_name).evaluator_type
-        if evaluator_type == "imagenet":
-            return ImageNetEvaluator(dataset_name, cfg, True, output_folder)
-        if len(evaluator_list) == 0:
-            raise NotImplementedError(
-                "no Evaluator for the dataset {} with the type {}".format(
-                    dataset_name, evaluator_type
-                )
-            )
-        elif len(evaluator_list) == 1:
-            return evaluator_list[0]
-        return DatasetEvaluators(evaluator_list)
+        return ImageNetEvaluator(dataset_name, cfg, True, output_folder)  # TODO: most likely need to modify evaluator
 
     @classmethod
     def test_with_TTA(cls, cfg, model):
@@ -87,7 +74,6 @@ class Trainer(DefaultTrainer):
         return res
 
 
-
 def setup(args):
     """
     Create configs and perform basic setups.
@@ -98,7 +84,6 @@ def setup(args):
     cfg.freeze()
     default_setup(cfg, args)
     return cfg
-
 
 
 def main(args):
@@ -115,7 +100,7 @@ def main(args):
         if comm.is_main_process():
             verify_results(cfg, res)
         return res
-    
+
     """
     If you'd like to do anything fancier than the standard training logic,
     consider writing your own training loop or subclassing the trainer.
