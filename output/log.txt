@@ -3446,3 +3446,2557 @@ ClsNet(
 [10/06 23:22:56] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
 [10/06 23:22:56] d2.data.common INFO: Serialized dataset takes 0.76 MiB
 [10/06 23:22:56] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 04:19:44] detectron2 INFO: Rank of current process: 0. World size: 1
+[10/10 04:19:45] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.6.12 |Anaconda, Inc.| (default, Sep  8 2020, 23:10:56) [GCC 7.3.0]
+numpy                   1.19.1
+detectron2              0.2.1 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.2
+detectron2 arch flags   /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/_C.cpython-36m-x86_64-linux-gnu.so
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.6.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   Tesla T4
+CUDA_HOME               None
+Pillow                  7.2.0
+torchvision             0.7.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision
+torchvision arch flags  /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision/_C.so
+fvcore                  0.1.2.post20201009
+cv2                     3.4.2
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.5.0 (Git Hash e2ac1fac44c5078ca927cb9b90e1b3066a0b2ed0)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.2
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.5
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_STATIC_DISPATCH=OFF, 
+
+[10/10 04:19:45] detectron2 INFO: Command line arguments: Namespace(config_file='configs/Base_image_cls.yaml', dist_url='tcp://127.0.0.1:50153', eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=[], resume=False)
+[10/10 04:19:45] detectron2 INFO: Contents of args.config_file=configs/Base_image_cls.yaml:
+MODEL:
+  META_ARCHITECTURE: "ClsNet"
+  BACKBONE:
+    NAME: "build_mnetv1_backbone"
+    FREEZE_AT: 0
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
+  CLSNET:
+    ENABLE: True
+    NUM_CLASSES: 17 # assume max 1?
+    INPUT_SIZE: 224 # resizes image to 224x224
+
+DATASETS:
+  TRAIN: ("imagenet_train", )
+  TEST: ("imagenet_val", )
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  NUM_WORKERS: 4
+SOLVER:
+  IMS_PER_BATCH: 256
+  BASE_LR: 0.1
+  STEPS: (150000, 180000)
+  MAX_ITER: 200000
+INPUT:
+  CROP:
+    ENABLED: False
+VERSION: 2
+
+[10/10 04:19:45] detectron2 INFO: Running with full config:
+CUDNN_BENCHMARK: False
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: ()
+  PROPOSAL_FILES_TRAIN: ()
+  TEST: ('imagenet_val',)
+  TRAIN: ('imagenet_train',)
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: False
+    SIZE: [0.9, 0.9]
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN: (800,)
+  MIN_SIZE_TRAIN_SAMPLING: choice
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES: [[-90, 0, 90]]
+    ASPECT_RATIOS: [[0.5, 1.0, 2.0]]
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES: [[32, 64, 128, 256, 512]]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: build_mnetv1_backbone
+  CLSNET:
+    ENABLE: True
+    INPUT_SIZE: 224
+    IN_FEATURES: ['linear']
+    NUM_CLASSES: 17
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: 
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: False
+  LOAD_PROPOSALS: False
+  MASK_ON: False
+  META_ARCHITECTURE: ClsNet
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN: [103.53, 116.28, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: False
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE: [False, False, False, False]
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES: ['res4']
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: True
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES: ['p3', 'p4', 'p5', 'p6', 'p7']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.4, 0.5]
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS: ((10.0, 10.0, 5.0, 5.0), (20.0, 20.0, 10.0, 10.0), (30.0, 30.0, 15.0, 15.0))
+    IOUS: (0.5, 0.6, 0.7)
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (10.0, 10.0, 5.0, 5.0)
+    CLS_AGNOSTIC_BBOX_REG: False
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: 
+    NORM: 
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, 1]
+    IOU_THRESHOLDS: [0.5]
+    NAME: Res5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: True
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS: (512, 512, 512, 512, 512, 512, 512, 512)
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: True
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: False
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: 
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    BOUNDARY_THRESH: -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.3, 0.7]
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES: ['p2', 'p3', 'p4', 'p5']
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: 
+OUTPUT_DIR: ./output
+SEED: -1
+SOLVER:
+  BASE_LR: 0.1
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: False
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 256
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 200000
+  MOMENTUM: 0.9
+  NESTEROV: False
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: (150000, 180000)
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: False
+    FLIP: True
+    MAX_SIZE: 4000
+    MIN_SIZES: (400, 500, 600, 700, 800, 900, 1000, 1100, 1200)
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: False
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+[10/10 04:19:45] detectron2 INFO: Full config saved to ./output/config.yaml
+[10/10 04:19:45] d2.utils.env INFO: Using a generated random seed 45163070
+[10/10 04:19:47] d2.engine.defaults INFO: Model:
+ClsNet(
+  (bottom_up): MobileNetV1(
+    (stem): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.1, inplace=True)
+    )
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=8, bias=False)
+        (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(8, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=16, bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(16, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (4): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (5): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (6): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (7): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (8): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (9): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (10): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (11): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (12): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (linear): Linear(in_features=256, out_features=17, bias=True)
+  )
+  (criterion): CrossEntropyLoss()
+)
+[10/10 04:19:47] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 04:19:47] d2.data.classification_utils INFO: TransformGens used in training[Updated]: [Resize(shape=(224, 224))]
+[10/10 04:19:47] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
+[10/10 04:19:47] d2.data.common INFO: Serialized dataset takes 0.80 MiB
+[10/10 04:19:47] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 04:20:44] detectron2 INFO: Rank of current process: 0. World size: 1
+[10/10 04:20:44] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.6.12 |Anaconda, Inc.| (default, Sep  8 2020, 23:10:56) [GCC 7.3.0]
+numpy                   1.19.1
+detectron2              0.2.1 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.2
+detectron2 arch flags   /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/_C.cpython-36m-x86_64-linux-gnu.so
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.6.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   Tesla T4
+CUDA_HOME               None
+Pillow                  7.2.0
+torchvision             0.7.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision
+torchvision arch flags  /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision/_C.so
+fvcore                  0.1.2.post20201009
+cv2                     3.4.2
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.5.0 (Git Hash e2ac1fac44c5078ca927cb9b90e1b3066a0b2ed0)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.2
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.5
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_STATIC_DISPATCH=OFF, 
+
+[10/10 04:20:44] detectron2 INFO: Command line arguments: Namespace(config_file='configs/Base_image_cls.yaml', dist_url='tcp://127.0.0.1:50153', eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=[], resume=False)
+[10/10 04:20:44] detectron2 INFO: Contents of args.config_file=configs/Base_image_cls.yaml:
+MODEL:
+  META_ARCHITECTURE: "ClsNet"
+  BACKBONE:
+    NAME: "build_mnetv1_backbone"
+    FREEZE_AT: 0
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
+  CLSNET:
+    ENABLE: True
+    NUM_CLASSES: 17 # assume max 1?
+    INPUT_SIZE: 224 # resizes image to 224x224
+
+DATASETS:
+  TRAIN: ("imagenet_train", )
+  TEST: ("imagenet_val", )
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  NUM_WORKERS: 4
+SOLVER:
+  IMS_PER_BATCH: 256
+  BASE_LR: 0.1
+  STEPS: (150000, 180000)
+  MAX_ITER: 200000
+INPUT:
+  CROP:
+    ENABLED: False
+VERSION: 2
+
+[10/10 04:20:44] detectron2 INFO: Running with full config:
+CUDNN_BENCHMARK: False
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: ()
+  PROPOSAL_FILES_TRAIN: ()
+  TEST: ('imagenet_val',)
+  TRAIN: ('imagenet_train',)
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: False
+    SIZE: [0.9, 0.9]
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN: (800,)
+  MIN_SIZE_TRAIN_SAMPLING: choice
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES: [[-90, 0, 90]]
+    ASPECT_RATIOS: [[0.5, 1.0, 2.0]]
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES: [[32, 64, 128, 256, 512]]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: build_mnetv1_backbone
+  CLSNET:
+    ENABLE: True
+    INPUT_SIZE: 224
+    IN_FEATURES: ['linear']
+    NUM_CLASSES: 17
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: 
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: False
+  LOAD_PROPOSALS: False
+  MASK_ON: False
+  META_ARCHITECTURE: ClsNet
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN: [103.53, 116.28, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: False
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE: [False, False, False, False]
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES: ['res4']
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: True
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES: ['p3', 'p4', 'p5', 'p6', 'p7']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.4, 0.5]
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS: ((10.0, 10.0, 5.0, 5.0), (20.0, 20.0, 10.0, 10.0), (30.0, 30.0, 15.0, 15.0))
+    IOUS: (0.5, 0.6, 0.7)
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (10.0, 10.0, 5.0, 5.0)
+    CLS_AGNOSTIC_BBOX_REG: False
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: 
+    NORM: 
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, 1]
+    IOU_THRESHOLDS: [0.5]
+    NAME: Res5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: True
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS: (512, 512, 512, 512, 512, 512, 512, 512)
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: True
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: False
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: 
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    BOUNDARY_THRESH: -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.3, 0.7]
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES: ['p2', 'p3', 'p4', 'p5']
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: 
+OUTPUT_DIR: ./output
+SEED: -1
+SOLVER:
+  BASE_LR: 0.1
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: False
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 256
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 200000
+  MOMENTUM: 0.9
+  NESTEROV: False
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: (150000, 180000)
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: False
+    FLIP: True
+    MAX_SIZE: 4000
+    MIN_SIZES: (400, 500, 600, 700, 800, 900, 1000, 1100, 1200)
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: False
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+[10/10 04:20:44] detectron2 INFO: Full config saved to ./output/config.yaml
+[10/10 04:20:44] d2.utils.env INFO: Using a generated random seed 44856256
+[10/10 04:20:46] d2.engine.defaults INFO: Model:
+ClsNet(
+  (bottom_up): MobileNetV1(
+    (stem): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.1, inplace=True)
+    )
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=8, bias=False)
+        (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(8, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=16, bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(16, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (4): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (5): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (6): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (7): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (8): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (9): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (10): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (11): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (12): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (linear): Linear(in_features=256, out_features=17, bias=True)
+  )
+  (criterion): CrossEntropyLoss()
+)
+[10/10 04:20:46] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 04:20:46] d2.data.classification_utils INFO: TransformGens used in training[Updated]: [Resize(shape=(224, 224))]
+[10/10 04:20:46] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
+[10/10 04:20:46] d2.data.common INFO: Serialized dataset takes 0.80 MiB
+[10/10 04:20:46] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 04:20:47] fvcore.common.checkpoint INFO: No checkpoint found. Initializing model from scratch
+[10/10 04:20:47] d2.engine.train_loop INFO: Starting training from iteration 0
+[10/10 04:20:56] d2.engine.train_loop ERROR: Exception during training:
+Traceback (most recent call last):
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/engine/train_loop.py", line 140, in train
+    self.run_step()
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/engine/train_loop.py", line 226, in run_step
+    loss_dict = self.model(data)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/ImageClassification.detectron2/imgcls/modeling/meta_arch/clsnet.py", line 66, in forward
+    features = self.bottom_up(images.tensor)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/ImageClassification.detectron2/imgcls/modeling/backbone/mobilenet.py", line 148, in forward
+    x = m(x)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/container.py", line 117, in forward
+    input = module(input)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/batchnorm.py", line 136, in forward
+    self.weight, self.bias, bn_training, exponential_average_factor, self.eps)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/functional.py", line 2016, in batch_norm
+    training, momentum, eps, torch.backends.cudnn.enabled
+RuntimeError: CUDA out of memory. Tried to allocate 3.52 GiB (GPU 0; 14.76 GiB total capacity; 13.18 GiB already allocated; 819.75 MiB free; 13.19 GiB reserved in total by PyTorch)
+[10/10 04:20:56] d2.engine.hooks INFO: Total training time: 0:00:09 (0:00:00 on hooks)
+[10/10 04:27:09] detectron2 INFO: Rank of current process: 0. World size: 1
+[10/10 04:27:10] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.6.12 |Anaconda, Inc.| (default, Sep  8 2020, 23:10:56) [GCC 7.3.0]
+numpy                   1.19.1
+detectron2              0.2.1 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.2
+detectron2 arch flags   /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/_C.cpython-36m-x86_64-linux-gnu.so
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.6.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   Tesla T4
+CUDA_HOME               None
+Pillow                  7.2.0
+torchvision             0.7.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision
+torchvision arch flags  /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision/_C.so
+fvcore                  0.1.2.post20201009
+cv2                     3.4.2
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.5.0 (Git Hash e2ac1fac44c5078ca927cb9b90e1b3066a0b2ed0)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.2
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.5
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_STATIC_DISPATCH=OFF, 
+
+[10/10 04:27:10] detectron2 INFO: Command line arguments: Namespace(config_file='configs/Base_image_cls.yaml', dist_url='tcp://127.0.0.1:50153', eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=[], resume=False)
+[10/10 04:27:10] detectron2 INFO: Contents of args.config_file=configs/Base_image_cls.yaml:
+MODEL:
+  META_ARCHITECTURE: "ClsNet"
+  BACKBONE:
+    NAME: "build_mnetv1_backbone"
+    FREEZE_AT: 0
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
+  CLSNET:
+    ENABLE: True
+    NUM_CLASSES: 17 # assume max 1?
+    INPUT_SIZE: 224 # resizes image to 224x224
+
+DATASETS:
+  TRAIN: ("imagenet_train", )
+  TEST: ("imagenet_val", )
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  NUM_WORKERS: 4
+SOLVER:
+  IMS_PER_BATCH: 256
+  BASE_LR: 0.1
+  STEPS: (150000, 180000)
+  MAX_ITER: 200000
+INPUT:
+  CROP:
+    ENABLED: False
+VERSION: 2
+
+[10/10 04:27:10] detectron2 INFO: Running with full config:
+CUDNN_BENCHMARK: False
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: ()
+  PROPOSAL_FILES_TRAIN: ()
+  TEST: ('imagenet_val',)
+  TRAIN: ('imagenet_train',)
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: False
+    SIZE: [0.9, 0.9]
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN: (800,)
+  MIN_SIZE_TRAIN_SAMPLING: choice
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES: [[-90, 0, 90]]
+    ASPECT_RATIOS: [[0.5, 1.0, 2.0]]
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES: [[32, 64, 128, 256, 512]]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: build_mnetv1_backbone
+  CLSNET:
+    ENABLE: True
+    INPUT_SIZE: 224
+    IN_FEATURES: ['linear']
+    NUM_CLASSES: 17
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: 
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: False
+  LOAD_PROPOSALS: False
+  MASK_ON: False
+  META_ARCHITECTURE: ClsNet
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN: [103.53, 116.28, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: False
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE: [False, False, False, False]
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES: ['res4']
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: True
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES: ['p3', 'p4', 'p5', 'p6', 'p7']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.4, 0.5]
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS: ((10.0, 10.0, 5.0, 5.0), (20.0, 20.0, 10.0, 10.0), (30.0, 30.0, 15.0, 15.0))
+    IOUS: (0.5, 0.6, 0.7)
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (10.0, 10.0, 5.0, 5.0)
+    CLS_AGNOSTIC_BBOX_REG: False
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: 
+    NORM: 
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, 1]
+    IOU_THRESHOLDS: [0.5]
+    NAME: Res5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: True
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS: (512, 512, 512, 512, 512, 512, 512, 512)
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: True
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: False
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: 
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    BOUNDARY_THRESH: -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.3, 0.7]
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES: ['p2', 'p3', 'p4', 'p5']
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: 
+OUTPUT_DIR: ./output
+SEED: -1
+SOLVER:
+  BASE_LR: 0.1
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: False
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 256
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 200000
+  MOMENTUM: 0.9
+  NESTEROV: False
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: (150000, 180000)
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: False
+    FLIP: True
+    MAX_SIZE: 4000
+    MIN_SIZES: (400, 500, 600, 700, 800, 900, 1000, 1100, 1200)
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: False
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+[10/10 04:27:10] detectron2 INFO: Full config saved to ./output/config.yaml
+[10/10 04:27:10] d2.utils.env INFO: Using a generated random seed 10267180
+[10/10 04:27:12] d2.engine.defaults INFO: Model:
+ClsNet(
+  (bottom_up): MobileNetV1(
+    (stem): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.1, inplace=True)
+    )
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=8, bias=False)
+        (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(8, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=16, bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(16, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (4): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (5): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (6): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (7): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (8): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (9): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (10): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (11): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (12): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (linear): Linear(in_features=256, out_features=17, bias=True)
+  )
+  (criterion): CrossEntropyLoss()
+)
+[10/10 04:27:12] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 04:27:12] d2.data.classification_utils INFO: TransformGens used in training[Updated]: [Resize(shape=(224, 224))]
+[10/10 04:27:12] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
+[10/10 04:27:12] d2.data.common INFO: Serialized dataset takes 0.80 MiB
+[10/10 04:27:12] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 04:27:12] fvcore.common.checkpoint INFO: No checkpoint found. Initializing model from scratch
+[10/10 04:27:12] d2.engine.train_loop INFO: Starting training from iteration 0
+[10/10 04:27:21] d2.engine.train_loop ERROR: Exception during training:
+Traceback (most recent call last):
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/engine/train_loop.py", line 140, in train
+    self.run_step()
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/engine/train_loop.py", line 226, in run_step
+    loss_dict = self.model(data)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/ImageClassification.detectron2/imgcls/modeling/meta_arch/clsnet.py", line 66, in forward
+    features = self.bottom_up(images.tensor)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/ImageClassification.detectron2/imgcls/modeling/backbone/mobilenet.py", line 148, in forward
+    x = m(x)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/container.py", line 117, in forward
+    input = module(input)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/batchnorm.py", line 136, in forward
+    self.weight, self.bias, bn_training, exponential_average_factor, self.eps)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/functional.py", line 2016, in batch_norm
+    training, momentum, eps, torch.backends.cudnn.enabled
+RuntimeError: CUDA out of memory. Tried to allocate 3.52 GiB (GPU 0; 14.76 GiB total capacity; 13.18 GiB already allocated; 819.75 MiB free; 13.19 GiB reserved in total by PyTorch)
+[10/10 04:27:21] d2.engine.hooks INFO: Total training time: 0:00:09 (0:00:00 on hooks)
+[10/10 04:36:03] detectron2 INFO: Rank of current process: 0. World size: 1
+[10/10 04:36:03] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.6.12 |Anaconda, Inc.| (default, Sep  8 2020, 23:10:56) [GCC 7.3.0]
+numpy                   1.19.1
+detectron2              0.2.1 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.2
+detectron2 arch flags   /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/_C.cpython-36m-x86_64-linux-gnu.so
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.6.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   Tesla T4
+CUDA_HOME               None
+Pillow                  7.2.0
+torchvision             0.7.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision
+torchvision arch flags  /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision/_C.so
+fvcore                  0.1.2.post20201009
+cv2                     3.4.2
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.5.0 (Git Hash e2ac1fac44c5078ca927cb9b90e1b3066a0b2ed0)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.2
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.5
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_STATIC_DISPATCH=OFF, 
+
+[10/10 04:36:03] detectron2 INFO: Command line arguments: Namespace(config_file='configs/Base_image_cls.yaml', dist_url='tcp://127.0.0.1:50153', eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=[], resume=False)
+[10/10 04:36:03] detectron2 INFO: Contents of args.config_file=configs/Base_image_cls.yaml:
+MODEL:
+  META_ARCHITECTURE: "ClsNet"
+  BACKBONE:
+    NAME: "build_mnetv1_backbone"
+    FREEZE_AT: 0
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
+  CLSNET:
+    ENABLE: True
+    NUM_CLASSES: 17 # assume max 1?
+    INPUT_SIZE: 224 # resizes image to 224x224
+
+DATASETS:
+  TRAIN: ("imagenet_train", )
+  TEST: ("imagenet_val", )
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  NUM_WORKERS: 4
+SOLVER:
+  IMS_PER_BATCH: 128
+  BASE_LR: 0.1
+  STEPS: (150000, 180000)
+  MAX_ITER: 200000
+INPUT:
+  CROP:
+    ENABLED: False
+VERSION: 2
+
+[10/10 04:36:03] detectron2 INFO: Running with full config:
+CUDNN_BENCHMARK: False
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: ()
+  PROPOSAL_FILES_TRAIN: ()
+  TEST: ('imagenet_val',)
+  TRAIN: ('imagenet_train',)
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: False
+    SIZE: [0.9, 0.9]
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN: (800,)
+  MIN_SIZE_TRAIN_SAMPLING: choice
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES: [[-90, 0, 90]]
+    ASPECT_RATIOS: [[0.5, 1.0, 2.0]]
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES: [[32, 64, 128, 256, 512]]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: build_mnetv1_backbone
+  CLSNET:
+    ENABLE: True
+    INPUT_SIZE: 224
+    IN_FEATURES: ['linear']
+    NUM_CLASSES: 17
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: 
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: False
+  LOAD_PROPOSALS: False
+  MASK_ON: False
+  META_ARCHITECTURE: ClsNet
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN: [103.53, 116.28, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: False
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE: [False, False, False, False]
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES: ['res4']
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: True
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES: ['p3', 'p4', 'p5', 'p6', 'p7']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.4, 0.5]
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS: ((10.0, 10.0, 5.0, 5.0), (20.0, 20.0, 10.0, 10.0), (30.0, 30.0, 15.0, 15.0))
+    IOUS: (0.5, 0.6, 0.7)
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (10.0, 10.0, 5.0, 5.0)
+    CLS_AGNOSTIC_BBOX_REG: False
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: 
+    NORM: 
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, 1]
+    IOU_THRESHOLDS: [0.5]
+    NAME: Res5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: True
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS: (512, 512, 512, 512, 512, 512, 512, 512)
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: True
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: False
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: 
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    BOUNDARY_THRESH: -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.3, 0.7]
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES: ['p2', 'p3', 'p4', 'p5']
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: 
+OUTPUT_DIR: ./output
+SEED: -1
+SOLVER:
+  BASE_LR: 0.1
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: False
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 128
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 200000
+  MOMENTUM: 0.9
+  NESTEROV: False
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: (150000, 180000)
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: False
+    FLIP: True
+    MAX_SIZE: 4000
+    MIN_SIZES: (400, 500, 600, 700, 800, 900, 1000, 1100, 1200)
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: False
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+[10/10 04:36:03] detectron2 INFO: Full config saved to ./output/config.yaml
+[10/10 04:36:03] d2.utils.env INFO: Using a generated random seed 4053212
+[10/10 04:36:06] d2.engine.defaults INFO: Model:
+ClsNet(
+  (bottom_up): MobileNetV1(
+    (stem): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.1, inplace=True)
+    )
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=8, bias=False)
+        (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(8, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=16, bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(16, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (4): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (5): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (6): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (7): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (8): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (9): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (10): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (11): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (12): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (linear): Linear(in_features=256, out_features=17, bias=True)
+  )
+  (criterion): CrossEntropyLoss()
+)
+[10/10 04:36:06] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 04:36:06] d2.data.classification_utils INFO: TransformGens used in training[Updated]: [Resize(shape=(224, 224))]
+[10/10 04:36:06] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
+[10/10 04:36:06] d2.data.common INFO: Serialized dataset takes 0.80 MiB
+[10/10 04:36:06] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 04:36:06] fvcore.common.checkpoint INFO: No checkpoint found. Initializing model from scratch
+[10/10 04:36:06] d2.engine.train_loop INFO: Starting training from iteration 0
+[10/10 04:36:11] d2.engine.train_loop ERROR: Exception during training:
+Traceback (most recent call last):
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/engine/train_loop.py", line 140, in train
+    self.run_step()
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/engine/train_loop.py", line 226, in run_step
+    loss_dict = self.model(data)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/ImageClassification.detectron2/imgcls/modeling/meta_arch/clsnet.py", line 66, in forward
+    features = self.bottom_up(images.tensor)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/ImageClassification.detectron2/imgcls/modeling/backbone/mobilenet.py", line 148, in forward
+    x = m(x)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/container.py", line 117, in forward
+    input = module(input)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/modules/batchnorm.py", line 136, in forward
+    self.weight, self.bias, bn_training, exponential_average_factor, self.eps)
+  File "/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch/nn/functional.py", line 2016, in batch_norm
+    training, momentum, eps, torch.backends.cudnn.enabled
+RuntimeError: CUDA out of memory. Tried to allocate 900.00 MiB (GPU 0; 14.76 GiB total capacity; 13.62 GiB already allocated; 369.75 MiB free; 13.62 GiB reserved in total by PyTorch)
+[10/10 04:36:11] d2.engine.hooks INFO: Total training time: 0:00:05 (0:00:00 on hooks)
+[10/10 04:36:25] detectron2 INFO: Rank of current process: 0. World size: 1
+[10/10 04:36:26] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.6.12 |Anaconda, Inc.| (default, Sep  8 2020, 23:10:56) [GCC 7.3.0]
+numpy                   1.19.1
+detectron2              0.2.1 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.2
+detectron2 arch flags   /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/_C.cpython-36m-x86_64-linux-gnu.so
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.6.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   Tesla T4
+CUDA_HOME               None
+Pillow                  7.2.0
+torchvision             0.7.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision
+torchvision arch flags  /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision/_C.so
+fvcore                  0.1.2.post20201009
+cv2                     3.4.2
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.5.0 (Git Hash e2ac1fac44c5078ca927cb9b90e1b3066a0b2ed0)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.2
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.5
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_STATIC_DISPATCH=OFF, 
+
+[10/10 04:36:26] detectron2 INFO: Command line arguments: Namespace(config_file='configs/Base_image_cls.yaml', dist_url='tcp://127.0.0.1:50153', eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=[], resume=False)
+[10/10 04:36:26] detectron2 INFO: Contents of args.config_file=configs/Base_image_cls.yaml:
+MODEL:
+  META_ARCHITECTURE: "ClsNet"
+  BACKBONE:
+    NAME: "build_mnetv1_backbone"
+    FREEZE_AT: 0
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
+  CLSNET:
+    ENABLE: True
+    NUM_CLASSES: 17 # assume max 1?
+    INPUT_SIZE: 224 # resizes image to 224x224
+
+DATASETS:
+  TRAIN: ("imagenet_train", )
+  TEST: ("imagenet_val", )
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  NUM_WORKERS: 4
+SOLVER:
+  IMS_PER_BATCH: 64
+  BASE_LR: 0.1
+  STEPS: (150000, 180000)
+  MAX_ITER: 200000
+INPUT:
+  CROP:
+    ENABLED: False
+VERSION: 2
+
+[10/10 04:36:26] detectron2 INFO: Running with full config:
+CUDNN_BENCHMARK: False
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: ()
+  PROPOSAL_FILES_TRAIN: ()
+  TEST: ('imagenet_val',)
+  TRAIN: ('imagenet_train',)
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: False
+    SIZE: [0.9, 0.9]
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN: (800,)
+  MIN_SIZE_TRAIN_SAMPLING: choice
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES: [[-90, 0, 90]]
+    ASPECT_RATIOS: [[0.5, 1.0, 2.0]]
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES: [[32, 64, 128, 256, 512]]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: build_mnetv1_backbone
+  CLSNET:
+    ENABLE: True
+    INPUT_SIZE: 224
+    IN_FEATURES: ['linear']
+    NUM_CLASSES: 17
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: 
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: False
+  LOAD_PROPOSALS: False
+  MASK_ON: False
+  META_ARCHITECTURE: ClsNet
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN: [103.53, 116.28, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: False
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE: [False, False, False, False]
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES: ['res4']
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: True
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES: ['p3', 'p4', 'p5', 'p6', 'p7']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.4, 0.5]
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS: ((10.0, 10.0, 5.0, 5.0), (20.0, 20.0, 10.0, 10.0), (30.0, 30.0, 15.0, 15.0))
+    IOUS: (0.5, 0.6, 0.7)
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (10.0, 10.0, 5.0, 5.0)
+    CLS_AGNOSTIC_BBOX_REG: False
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: 
+    NORM: 
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, 1]
+    IOU_THRESHOLDS: [0.5]
+    NAME: Res5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: True
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS: (512, 512, 512, 512, 512, 512, 512, 512)
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: True
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: False
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: 
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    BOUNDARY_THRESH: -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.3, 0.7]
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES: ['p2', 'p3', 'p4', 'p5']
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: 
+OUTPUT_DIR: ./output
+SEED: -1
+SOLVER:
+  BASE_LR: 0.1
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: False
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 64
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 200000
+  MOMENTUM: 0.9
+  NESTEROV: False
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: (150000, 180000)
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: False
+    FLIP: True
+    MAX_SIZE: 4000
+    MIN_SIZES: (400, 500, 600, 700, 800, 900, 1000, 1100, 1200)
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: False
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+[10/10 04:36:26] detectron2 INFO: Full config saved to ./output/config.yaml
+[10/10 04:36:26] d2.utils.env INFO: Using a generated random seed 26358250
+[10/10 04:36:28] d2.engine.defaults INFO: Model:
+ClsNet(
+  (bottom_up): MobileNetV1(
+    (stem): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.1, inplace=True)
+    )
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=8, bias=False)
+        (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(8, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=16, bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(16, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (4): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (5): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (6): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (7): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (8): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (9): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (10): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (11): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (12): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (linear): Linear(in_features=256, out_features=17, bias=True)
+  )
+  (criterion): CrossEntropyLoss()
+)
+[10/10 04:36:28] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 04:36:28] d2.data.classification_utils INFO: TransformGens used in training[Updated]: [Resize(shape=(224, 224))]
+[10/10 04:36:28] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
+[10/10 04:36:28] d2.data.common INFO: Serialized dataset takes 0.80 MiB
+[10/10 04:36:28] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 04:36:28] fvcore.common.checkpoint INFO: No checkpoint found. Initializing model from scratch
+[10/10 04:36:28] d2.engine.train_loop INFO: Starting training from iteration 0
+[10/10 04:36:46] d2.utils.events INFO:  eta: 1 day, 20:57:29  iter: 19  total_loss: 0.000  time: 0.8068  data_time: 0.1277  lr: 0.001998  max_mem: 12119M
+[10/10 04:37:02] d2.utils.events INFO:  eta: 1 day, 21:05:20  iter: 39  total_loss: 0.000  time: 0.8102  data_time: 0.0229  lr: 0.003996  max_mem: 12119M
+[10/10 04:37:19] d2.utils.events INFO:  eta: 1 day, 21:08:48  iter: 59  total_loss: 0.000  time: 0.8136  data_time: 0.0206  lr: 0.005994  max_mem: 12119M
+[10/10 04:37:27] d2.engine.hooks INFO: Overall training speed: 67 iterations in 0:00:55 (0.8262 s / it)
+[10/10 04:37:27] d2.engine.hooks INFO: Total training time: 0:00:55 (0:00:00 on hooks)
+[10/10 06:04:20] detectron2 INFO: Rank of current process: 0. World size: 1
+[10/10 06:04:20] detectron2 INFO: Environment info:
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.6.12 |Anaconda, Inc.| (default, Sep  8 2020, 23:10:56) [GCC 7.3.0]
+numpy                   1.19.1
+detectron2              0.2.1 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.2
+detectron2 arch flags   /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/detectron2/_C.cpython-36m-x86_64-linux-gnu.so
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.6.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   Tesla T4
+CUDA_HOME               None
+Pillow                  7.2.0
+torchvision             0.7.0 @/home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision
+torchvision arch flags  /home/rodriguedeschaetzen/miniconda/envs/projectx/lib/python3.6/site-packages/torchvision/_C.so
+fvcore                  0.1.2.post20201009
+cv2                     3.4.2
+----------------------  ---------------------------------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.5.0 (Git Hash e2ac1fac44c5078ca927cb9b90e1b3066a0b2ed0)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.2
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.5
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_STATIC_DISPATCH=OFF, 
+
+[10/10 06:04:20] detectron2 INFO: Command line arguments: Namespace(config_file='configs/Base_image_cls.yaml', dist_url='tcp://127.0.0.1:50153', eval_only=False, machine_rank=0, num_gpus=1, num_machines=1, opts=[], resume=False)
+[10/10 06:04:20] detectron2 INFO: Contents of args.config_file=configs/Base_image_cls.yaml:
+MODEL:
+  META_ARCHITECTURE: "ClsNet"
+  BACKBONE:
+    NAME: "build_mnetv1_backbone"
+    FREEZE_AT: 0
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
+  CLSNET:
+    ENABLE: True
+    NUM_CLASSES: 17 # assume max 1?
+    INPUT_SIZE: 224 # resizes image to 224x224
+
+DATASETS:
+  TRAIN: ("imagenet_train", )
+  TEST: ("imagenet_val", )
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  NUM_WORKERS: 4
+SOLVER:
+  IMS_PER_BATCH: 64
+  BASE_LR: 0.1
+  STEPS: (150000, 180000)
+  MAX_ITER: 200
+INPUT:
+  CROP:
+    ENABLED: False
+VERSION: 2
+
+[10/10 06:04:20] detectron2 INFO: Running with full config:
+CUDNN_BENCHMARK: False
+DATALOADER:
+  ASPECT_RATIO_GROUPING: False
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: ()
+  PROPOSAL_FILES_TRAIN: ()
+  TEST: ('imagenet_val',)
+  TRAIN: ('imagenet_train',)
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: False
+    SIZE: [0.9, 0.9]
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN: (800,)
+  MIN_SIZE_TRAIN_SAMPLING: choice
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES: [[-90, 0, 90]]
+    ASPECT_RATIOS: [[0.5, 1.0, 2.0]]
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES: [[32, 64, 128, 256, 512]]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: build_mnetv1_backbone
+  CLSNET:
+    ENABLE: True
+    INPUT_SIZE: 224
+    IN_FEATURES: ['linear']
+    NUM_CLASSES: 17
+  DEVICE: cuda
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES: []
+    NORM: 
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: False
+  LOAD_PROPOSALS: False
+  MASK_ON: False
+  META_ARCHITECTURE: ClsNet
+  MNET:
+    OUT_FEATURES: ['linear']
+    WIDTH_MULT: 0.25
+  PANOPTIC_FPN:
+    COMBINE:
+      ENABLED: True
+      INSTANCES_CONFIDENCE_THRESH: 0.5
+      OVERLAP_THRESH: 0.5
+      STUFF_AREA_LIMIT: 4096
+    INSTANCE_LOSS_WEIGHT: 1.0
+  PIXEL_MEAN: [103.53, 116.28, 123.675]
+  PIXEL_STD: [1.0, 1.0, 1.0]
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_MODULATED: False
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE: [False, False, False, False]
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES: ['res4']
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: True
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    FOCAL_LOSS_ALPHA: 0.25
+    FOCAL_LOSS_GAMMA: 2.0
+    IN_FEATURES: ['p3', 'p4', 'p5', 'p6', 'p7']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.4, 0.5]
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    NUM_CONVS: 4
+    PRIOR_PROB: 0.01
+    SCORE_THRESH_TEST: 0.05
+    SMOOTH_L1_LOSS_BETA: 0.1
+    TOPK_CANDIDATES_TEST: 1000
+  ROI_BOX_CASCADE_HEAD:
+    BBOX_REG_WEIGHTS: ((10.0, 10.0, 5.0, 5.0), (20.0, 20.0, 10.0, 10.0), (30.0, 30.0, 15.0, 15.0))
+    IOUS: (0.5, 0.6, 0.7)
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (10.0, 10.0, 5.0, 5.0)
+    CLS_AGNOSTIC_BBOX_REG: False
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: 
+    NORM: 
+    NUM_CONV: 0
+    NUM_FC: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, 1]
+    IOU_THRESHOLDS: [0.5]
+    NAME: Res5ROIHeads
+    NMS_THRESH_TEST: 0.5
+    NUM_CLASSES: 80
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: True
+    SCORE_THRESH_TEST: 0.05
+  ROI_KEYPOINT_HEAD:
+    CONV_DIMS: (512, 512, 512, 512, 512, 512, 512, 512)
+    LOSS_WEIGHT: 1.0
+    MIN_KEYPOINTS_PER_IMAGE: 1
+    NAME: KRCNNConvDeconvUpsampleHead
+    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: True
+    NUM_KEYPOINTS: 17
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  ROI_MASK_HEAD:
+    CLS_AGNOSTIC_MASK: False
+    CONV_DIM: 256
+    NAME: MaskRCNNConvUpsampleHead
+    NORM: 
+    NUM_CONV: 0
+    POOLER_RESOLUTION: 14
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS: (1.0, 1.0, 1.0, 1.0)
+    BOUNDARY_THRESH: -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES: ['res4']
+    IOU_LABELS: [0, -1, 1]
+    IOU_THRESHOLDS: [0.3, 0.7]
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 6000
+    PRE_NMS_TOPK_TRAIN: 12000
+    SMOOTH_L1_BETA: 0.0
+  SEM_SEG_HEAD:
+    COMMON_STRIDE: 4
+    CONVS_DIM: 128
+    IGNORE_VALUE: 255
+    IN_FEATURES: ['p2', 'p3', 'p4', 'p5']
+    LOSS_WEIGHT: 1.0
+    NAME: SemSegFPNHead
+    NORM: GN
+    NUM_CLASSES: 54
+  WEIGHTS: 
+OUTPUT_DIR: ./output
+SEED: -1
+SOLVER:
+  BASE_LR: 0.1
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5000
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: False
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 64
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 200
+  MOMENTUM: 0.9
+  NESTEROV: False
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: (150000, 180000)
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 1000
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: False
+    FLIP: True
+    MAX_SIZE: 4000
+    MIN_SIZES: (400, 500, 600, 700, 800, 900, 1000, 1100, 1200)
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 0
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: False
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 0
+[10/10 06:04:20] detectron2 INFO: Full config saved to ./output/config.yaml
+[10/10 06:04:20] d2.utils.env INFO: Using a generated random seed 20718911
+[10/10 06:04:23] d2.engine.defaults INFO: Model:
+ClsNet(
+  (bottom_up): MobileNetV1(
+    (stem): Sequential(
+      (0): Conv2d(3, 8, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.1, inplace=True)
+    )
+    (features): ModuleList(
+      (0): Sequential(
+        (0): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=8, bias=False)
+        (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(8, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (1): Sequential(
+        (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=16, bias=False)
+        (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(16, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (2): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (3): Sequential(
+        (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=32, bias=False)
+        (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (4): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (5): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (6): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (7): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (8): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (9): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (10): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (11): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=128, bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+      (12): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256, bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): LeakyReLU(negative_slope=0.1, inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): LeakyReLU(negative_slope=0.1, inplace=True)
+      )
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (linear): Linear(in_features=256, out_features=17, bias=True)
+  )
+  (criterion): CrossEntropyLoss()
+)
+[10/10 06:04:23] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 06:04:23] d2.data.classification_utils INFO: TransformGens used in training[Updated]: [Resize(shape=(224, 224))]
+[10/10 06:04:23] d2.data.common INFO: Serializing 6505 elements to byte tensors and concatenating them all ...
+[10/10 06:04:23] d2.data.common INFO: Serialized dataset takes 0.80 MiB
+[10/10 06:04:23] d2.data.build INFO: Using training sampler TrainingSampler
+[10/10 06:04:23] fvcore.common.checkpoint INFO: No checkpoint found. Initializing model from scratch
+[10/10 06:04:23] d2.engine.train_loop INFO: Starting training from iteration 0
+[10/10 06:04:41] d2.utils.events INFO:  eta: 0:02:26  iter: 19  total_loss: 0.000  time: 0.8098  data_time: 0.1444  lr: 0.001998  max_mem: 12119M
+[10/10 06:04:58] d2.utils.events INFO:  eta: 0:02:11  iter: 39  total_loss: 0.000  time: 0.8141  data_time: 0.0267  lr: 0.003996  max_mem: 12119M
+[10/10 06:05:14] d2.utils.events INFO:  eta: 0:01:55  iter: 59  total_loss: 0.000  time: 0.8188  data_time: 0.0257  lr: 0.005994  max_mem: 12119M
+[10/10 06:05:31] d2.utils.events INFO:  eta: 0:01:39  iter: 79  total_loss: 0.000  time: 0.8236  data_time: 0.0224  lr: 0.007992  max_mem: 12119M
+[10/10 06:05:48] d2.utils.events INFO:  eta: 0:01:23  iter: 99  total_loss: 0.000  time: 0.8287  data_time: 0.0248  lr: 0.009990  max_mem: 12119M
+[10/10 06:06:05] d2.utils.events INFO:  eta: 0:01:07  iter: 119  total_loss: 0.000  time: 0.8338  data_time: 0.0255  lr: 0.011988  max_mem: 12119M
+[10/10 06:06:23] d2.utils.events INFO:  eta: 0:00:51  iter: 139  total_loss: 0.000  time: 0.8395  data_time: 0.0220  lr: 0.013986  max_mem: 12119M
+[10/10 06:06:40] d2.utils.events INFO:  eta: 0:00:34  iter: 159  total_loss: 0.000  time: 0.8433  data_time: 0.0228  lr: 0.015984  max_mem: 12119M
+[10/10 06:06:57] d2.utils.events INFO:  eta: 0:00:17  iter: 179  total_loss: 0.000  time: 0.8454  data_time: 0.0217  lr: 0.017982  max_mem: 12119M
+[10/10 06:07:15] fvcore.common.checkpoint INFO: Saving checkpoint to ./output/model_final.pth
+[10/10 06:07:15] d2.data.dataset_mapper INFO: Augmentations used in training: []
+[10/10 06:07:15] d2.data.common INFO: Serializing 1000 elements to byte tensors and concatenating them all ...
+[10/10 06:07:15] d2.data.common INFO: Serialized dataset takes 0.12 MiB
+[10/10 06:07:15] d2.evaluation.evaluator INFO: Start inference on 1000 images
+[10/10 06:07:16] d2.evaluation.evaluator INFO: Inference done 11/1000. 0.0053 s / img. ETA=0:00:06
+[10/10 06:07:21] d2.evaluation.evaluator INFO: Inference done 533/1000. 0.0053 s / img. ETA=0:00:04
+[10/10 06:07:25] d2.evaluation.evaluator INFO: Total inference time: 0:00:09.683104 (0.009732 s / img per device, on 1 devices)
+[10/10 06:07:25] d2.evaluation.evaluator INFO: Total inference pure compute time: 0:00:05 (0.005225 s / img per device, on 1 devices)
+[10/10 06:07:25] d2.engine.defaults INFO: Evaluation results for imagenet_val in csv format:
+[10/10 06:07:25] d2.evaluation.testing INFO: copypaste: Task: accuracy
+[10/10 06:07:25] d2.evaluation.testing INFO: copypaste: top1
+[10/10 06:07:25] d2.evaluation.testing INFO: copypaste: 20.9000
+[10/10 06:07:25] d2.utils.events INFO:  eta: 0:00:00  iter: 199  total_loss: 0.000  time: 0.8469  data_time: 0.0225  lr: 0.019980  max_mem: 12119M
+[10/10 06:07:25] d2.engine.hooks INFO: Overall training speed: 197 iterations in 0:02:47 (0.8512 s / it)
+[10/10 06:07:25] d2.engine.hooks INFO: Total training time: 0:02:58 (0:00:10 on hooks)
