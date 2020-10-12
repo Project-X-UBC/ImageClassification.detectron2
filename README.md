@@ -37,6 +37,7 @@ This provides a convenient way to initialize backbone in detectron2.
   - Number of nodes in the output layer matches the number of labels.
   - Sigmoid activation for each node in the output layer
   - Binary cross-entropy loss function.
+- [MobileNetV1](https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69)
 
 ## Questions
 - 
