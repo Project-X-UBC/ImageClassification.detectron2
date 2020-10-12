@@ -30,3 +30,13 @@ This provides a convenient way to initialize backbone in detectron2.
 
 1. Read carefully with some arguments in `train_net.py`
 2. Run: `sh /scripts/train_net.sh`
+
+## Useful info
+- stack exchange answer explaing top k accuracy https://stats.stackexchange.com/a/331508
+- From this article https://machinelearningmastery.com/multi-label-classification-with-deep-learning/
+  - Number of nodes in the output layer matches the number of labels.
+  - Sigmoid activation for each node in the output layer
+  - Binary cross-entropy loss function.
+
+## Questions
+- 
