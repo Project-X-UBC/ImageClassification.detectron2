@@ -27,6 +27,3 @@ INPUT:
   CROP:
     ENABLED: False
 VERSION: 2
-TEST:
-  AUG:
-    ENABLED: False
