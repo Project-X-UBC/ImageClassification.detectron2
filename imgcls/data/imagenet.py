@@ -1,11 +1,11 @@
-'''
+"""
 @Copyright (c) tkianai All Rights Reserved.
 @Author         : tkianai
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 17:02:07
 @FilePath       : /ImageCls.detectron2/imgcls/data/imagenet.py
-@Description    : 
-'''
+@Description    :
+"""
 
 
 import os

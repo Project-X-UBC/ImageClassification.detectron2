@@ -49,3 +49,11 @@ This provides a convenient way to initialize backbone in detectron2.
 - [Why use BatchNorm2d](https://www.aiworkbox.com/lessons/batchnorm2d-how-to-use-the-batchnorm2d-module-in-pytorch)
 - [Multi channel convolutions explained](https://medium.com/apache-mxnet/multi-channel-convolutions-explained-with-ms-excel-9bbf8eb77108)
 - Discussion on group param in Conv2D [here](https://stackoverflow.com/a/46538480/13937378) and [here](https://mc.ai/how-groups-work-in-pytorch-convolutions/)
+
+
+## TODO: 
+- add a todo.md in repo
+- add logic to handle starting training from checkpoints
+- add weight to loss with [BCEWithLogitsLoss](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)
+- determine the [best threshold value](https://machinelearningmastery.com/threshold-moving-for-imbalanced-classification/) for determining smoke/no-smoke
+- configure [TTA](https://towardsdatascience.com/test-time-augmentation-tta-and-how-to-perform-it-with-keras-4ac19b67fb4d)

@@ -1,11 +1,11 @@
-'''
+"""
 @Copyright (c) tkianai All Rights Reserved.
 @Author         : tkianai
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 14:11:49
 @FilePath       : /ImageCls.detectron2/imgcls/modeling/backbone/__init__.py
-@Description    : 
-'''
+@Description    :
+"""
 
 
 from .mobilenet import *

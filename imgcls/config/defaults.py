@@ -1,11 +1,11 @@
-'''
+"""
 @Copyright (c) tkianai All Rights Reserved.
 @Author         : tkianai
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 14:26:03
 @FilePath       : /ImageCls.detectron2/imgcls/config/defaults.py
-@Description    : 
-'''
+@Description    :
+"""
 
 
 from detectron2.config.defaults import _C

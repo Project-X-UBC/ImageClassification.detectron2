@@ -1,20 +1,18 @@
-'''
+"""
 @Copyright (c) tkianai All Rights Reserved.
 @Author         : tkianai
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 14:14:18
 @FilePath       : /ImageCls.detectron2/imgcls/modeling/backbone/mobilenet.py
 @Description    :
-'''
+"""
 
 
 import torch
 import torch.nn as nn
 from detectron2.layers import Conv2d, ShapeSpec
-from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 from detectron2.modeling.backbone import Backbone
-from detectron2.modeling.backbone.fpn import FPN, LastLevelMaxPool, LastLevelP6P7
-# TODO: fix imports
+from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 
 
 __all__ = [
@@ -167,7 +165,7 @@ class MobileNetV1(Backbone):
             x = torch.flatten(x, 1)
             x = self.linear(x)
             x = self.sigmoid(x)  # applies element wise sigmoid which outputs values in range [0,1]
-            if "linear" in self._out_features:
+            if "linear" in self._out_features:  # TODO: should probs change linear
                 outputs["linear"] = x
         return outputs
 
