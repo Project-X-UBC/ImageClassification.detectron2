@@ -36,12 +36,14 @@ class ImageNetEvaluator(DatasetEvaluator):
     def reset(self):
         self._predictions = []
 
+    # TODO: i think gt is "ground truth" change to "label"
     def process(self, inputs, outputs):
         for input, output in zip(inputs, outputs):
             prediction = {"image_id": input["image_id"], "gt": input["label"],
                           "pred": output["pred_classes"].to(self._cpu_device)}
             self._predictions.append(prediction)
 
+    # TODO: probs need to make modifications here
     def evaluate(self):
         if self._distributed:
             comm.synchronize()
@@ -69,7 +71,7 @@ class ImageNetEvaluator(DatasetEvaluator):
         num_samples = target.size(0)
 
         pred = pred.t()
-        correct = pred.eq(target.view(1, -1).expand_as(pred))
+        correct = pred.eq(target.view(1, -1).expand_as(pred))  # TODO: modify
 
         topk_acc = []
         for k in range(1, topk + 1):

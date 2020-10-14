@@ -4,7 +4,7 @@
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 14:14:18
 @FilePath       : /ImageCls.detectron2/imgcls/modeling/backbone/mobilenet.py
-@Description    : 
+@Description    :
 '''
 
 
@@ -14,6 +14,7 @@ from detectron2.layers import Conv2d, ShapeSpec
 from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 from detectron2.modeling.backbone import Backbone
 from detectron2.modeling.backbone.fpn import FPN, LastLevelMaxPool, LastLevelP6P7
+# TODO: fix imports
 
 
 __all__ = [
@@ -23,25 +24,34 @@ __all__ = [
 
 
 def conv_bn_leaky(inp, oup, stride=1, leaky=0):
+    """
+    Conv2d -> BatchNorm2d -> LeakyReLU
+    bn = BatchNorm
+    """
     return nn.Sequential(
-        Conv2d(inp, oup, 3, stride, 1, bias=False),
+        Conv2d(inp, oup, kernel_size=3, stride=stride, padding=1, bias=False),
         nn.BatchNorm2d(oup),
-        nn.LeakyReLU(negative_slope=leaky, inplace=True)
+        nn.LeakyReLU(negative_slope=leaky, inplace=True)  # default torch leaky value is 0.01
     )
 
 
 def conv_dw_leaky(inp, oup, stride, leaky=0.1):
+    """
+    Conv2d -> BatchNorm2d -> LeakyReLU -> Conv2d -> BatchNorm2d -> LeakyReLU
+    dw = depthwise
+    """
     return nn.Sequential(
-        Conv2d(inp, inp, 3, stride, 1, groups=inp, bias=False),
+        Conv2d(inp, inp, kernel_size=3, stride=stride, padding=1, groups=inp, bias=False),
         nn.BatchNorm2d(inp),
         nn.LeakyReLU(negative_slope=leaky, inplace=True),
 
-        Conv2d(inp, oup, 1, 1, 0, bias=False),
+        Conv2d(inp, oup, kernel_size=1, stride=1, padding=0, bias=False),
         nn.BatchNorm2d(oup),
         nn.LeakyReLU(negative_slope=leaky, inplace=True),
     )
 
-
+# TODO: this is where can define other backbones such as InceptionV3
+# TODO: add doc string
 class MobileNetV1(Backbone):
     def __init__(self, cfg, data_channel, width_mult=1.0, out_features=None, num_classes=None):
         super().__init__()
@@ -61,7 +71,7 @@ class MobileNetV1(Backbone):
 
         # body
         dw_setting = [
-            # c, n, s
+            # filters, count, stride
             [64, 1, 1],
             [128, 2, 2],
             [256, 2, 2],
@@ -101,6 +111,7 @@ class MobileNetV1(Backbone):
             self.linear = nn.Linear(input_channel, num_classes)
             nn.init.normal_(self.linear.weight, std=0.01)
             name = "linear"
+            self.sigmoid = nn.Sigmoid()
 
         if out_features is None:
             out_features = [name]
@@ -155,11 +166,13 @@ class MobileNetV1(Backbone):
             x = self.avgpool(x)
             x = torch.flatten(x, 1)
             x = self.linear(x)
+            x = self.sigmoid(x)  # applies element wise sigmoid which outputs values in range [0,1]
             if "linear" in self._out_features:
                 outputs["linear"] = x
         return outputs
 
 
+# TODO: move all stuff below in different file e.g. mobilenetv2
 def conv_bn(inp, oup, stride):
     return nn.Sequential(
         Conv2d(inp, oup, 3, stride, 1, bias=False),

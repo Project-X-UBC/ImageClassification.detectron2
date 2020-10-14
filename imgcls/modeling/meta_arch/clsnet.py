@@ -41,7 +41,7 @@ class ClsNet(nn.Module):
         self.num_classes = cfg.MODEL.CLSNET.NUM_CLASSES
         self.in_features = cfg.MODEL.CLSNET.IN_FEATURES
         self.bottom_up = build_backbone(cfg)
-        self.criterion = nn.CrossEntropyLoss()
+        self.criterion = nn.BCELoss()  # loss for multi-label classification
 
         self.register_buffer("pixel_mean", torch.Tensor(cfg.MODEL.PIXEL_MEAN).view(-1, 1, 1))
         self.register_buffer("pixel_std", torch.Tensor(cfg.MODEL.PIXEL_STD).view(-1, 1, 1))
@@ -78,6 +78,7 @@ class ClsNet(nn.Module):
                 processed_results.append({"pred_classes": results_per_image})
             return processed_results
 
+    # TODO: f used by image net in train_net.py
     def forward_imgnet(self, images):
         features = self.bottom_up(images)
         return features["linear"]

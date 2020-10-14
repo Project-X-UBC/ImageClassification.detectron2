@@ -62,7 +62,7 @@ def is_image_file(filename):
 
 def accumulate_imagenet_json(image_root, phase):
     # accumulate infos
-    classes = [i for i in range(0, 17)]
+    classes = [i for i in range(0, 16)]
     class_to_idx = {classes[i]: i for i in range(len(classes))}
 
     json_file = osp.join(image_root, 'labels_' + phase + '.txt')
@@ -80,7 +80,6 @@ def accumulate_imagenet_json(image_root, phase):
             "file_name": osp.abspath(filename),  # Using abs path, ignore image root, less flexibility
             "image_id": idx,  # fake data only has a max of 1 transformed grid segment
             "label": imgs_anns[v]["index"],
-            "class": imgs_anns[v]["index"]  # FIXME: can probs get rid of one of them
         }
         dataset_dicts.append(record)
 
@@ -99,8 +98,6 @@ def main(args):
         json.dump(dataset_dicts_train, w_obj)
     with open(osp.join(args.save, "imagenet_detectron2_val.json"), "w") as w_obj:
         json.dump(dataset_dicts_val, w_obj)
-    with open(osp.join(args.save, "class_to_idx.json"), "w") as w_obj:
-        json.dump(class_to_idx, w_obj)
 
 
 if __name__ == "__main__":

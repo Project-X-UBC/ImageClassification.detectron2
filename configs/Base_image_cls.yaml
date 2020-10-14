@@ -3,13 +3,13 @@ MODEL:
   META_ARCHITECTURE: "ClsNet"
   BACKBONE:
     NAME: "build_mnetv1_backbone" # MobileNetV1
-    FREEZE_AT: 0 # # freezing a layer means setting the requires_grad to False
+    FREEZE_AT: 0 # freezing a layer means setting the requires_grad to False
   MNET:
     OUT_FEATURES: ['linear']
     WIDTH_MULT: 0.25 # Width multiplier - adjusts number of channels in each layer by this amount
   CLSNET:
     ENABLE: True
-    NUM_CLASSES: 17 # should be 16 for multi-label
+    NUM_CLASSES: 16 # should be 16 for multi-label
     INPUT_SIZE: 224 # resizes image to 224x224
 
 DATASETS:

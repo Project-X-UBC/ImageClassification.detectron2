@@ -28,7 +28,7 @@ def register_imagenet_instances(name, metadata, json_file):
         json_file=json_file, evaluator_type="imagenet", **metadata
     )
 
-
+# TODO could improve this by removing hardcoded stuff
 # Update info
 _root = os.getenv("DETECTRON2_DATASETS", "datasets")
 imagenet_train_annotation_file = osp.join(_root, "imagenet_detectron2_train.json")
@@ -36,6 +36,6 @@ imagenet_val_annotation_file = osp.join(_root, "imagenet_detectron2_val.json")
 
 # Register into DatasetCatalog
 register_imagenet_instances("imagenet_train", {}, imagenet_train_annotation_file)
-register_imagenet_instances("imagenet_val", {}, imagenet_val_annotation_file)
+register_imagenet_instances("imagenet_val", {}, imagenet_val_annotation_file)  # TODO: need to register a third for test!
 
 

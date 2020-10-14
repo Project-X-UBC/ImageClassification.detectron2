@@ -55,6 +55,8 @@ class Trainer(DefaultTrainer):
             output_folder = os.path.join(cfg.OUTPUT_DIR, "inference")
         return ImageNetEvaluator(dataset_name, cfg, True, output_folder)  # TODO: most likely need to modify evaluator
 
+    # TODO: wont work for model
+    # TODO: modfiy
     @classmethod
     def test_with_TTA(cls, cfg, model):
         # Test Time Augmentation explanation about it here
@@ -67,7 +69,7 @@ class Trainer(DefaultTrainer):
         evaluators = [
             cls.build_evaluator(
                 cfg, name, output_folder=os.path.join(
-                    cfg.OUTPUT_DIR, "inference_TTA")  # TODO: check if OUTPUT_DIR is defined
+                    cfg.OUTPUT_DIR, "inference_TTA")
             )
             for name in cfg.DATASETS.TEST
         ]
