@@ -9,14 +9,10 @@
 
 import re
 import os
-import os.path as osp
 import argparse
 import json
 from tqdm import tqdm
 import numpy as np
-import cv2
-
-IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp')
 
 ARCHIVE_META = {
     'train': 'train_set',
@@ -30,42 +26,27 @@ def parse_args():
     parser.add_argument('--save', type=str, help="Result saving directory")
 
     args = parser.parse_args()
-    if not osp.exists(args.save):
+    if not os.path.exists(args.save):
         os.makedirs(args.save)
 
-    assert osp.exists(osp.join(args.root, ARCHIVE_META['train']))
-    assert osp.exists(osp.join(args.root, ARCHIVE_META['val']))
+    assert os.path.exists(os.path.join(args.root, ARCHIVE_META['train']))
+    assert os.path.exists(os.path.join(args.root, ARCHIVE_META['val']))
 
     return args
 
 
-def has_file_allowed_extension(filename, extensions):
-    """Checks if a file is an allowed extension.
-    Args:
-        filename (string): path to a file
-        extensions (tuple of strings): extensions to consider (lowercase)
-    Returns:
-        bool: True if the filename ends with one of given extensions
-    """
-    return filename.lower().endswith(extensions)
-
-
-def is_image_file(filename):
-    """Checks if a file is an allowed image extension.
-    Args:
-        filename (string): path to a file
-    Returns:
-        bool: True if the filename ends with a known image extension
-    """
-    return has_file_allowed_extension(filename, IMG_EXTENSIONS)
+def get_multi_label_array(index):
+    labels = np.zeros(16, dtype=int)
+    if index != 0:
+        labels[index-1] = 1
+    return labels.tolist()
 
 
 def accumulate_imagenet_json(image_root, phase):
     # accumulate infos
     classes = [i for i in range(0, 16)]
-    class_to_idx = {classes[i]: i for i in range(len(classes))}
 
-    json_file = osp.join(image_root, 'labels_' + phase + '.txt')
+    json_file = os.path.join(image_root, 'labels_' + phase + '.txt')
     with open(json_file) as f:
         imgs_anns = json.load(f)
 
@@ -73,30 +54,30 @@ def accumulate_imagenet_json(image_root, phase):
     for idx, v in enumerate(tqdm(imgs_anns.keys())):
         # FIXME: fake data has images_test\\ or images_train\\ appended in front of keys
         key = re.sub("images_\w{4,5}\\\\", "", v)
-        filename = osp.join(image_root, phase + '_set', key)
+        filename = os.path.join(image_root, phase + '_set', key)
         # height, width = cv2.imread(filename).shape[:2]
 
         record = {
-            "file_name": osp.abspath(filename),  # Using abs path, ignore image root, less flexibility
+            "file_name": os.path.abspath(filename),  # Using abs path, ignore image root, less flexibility
             "image_id": idx,  # fake data only has a max of 1 transformed grid segment
-            "label": imgs_anns[v]["index"],
+            "label": get_multi_label_array(imgs_anns[v]["index"]),
         }
         dataset_dicts.append(record)
 
-    return dataset_dicts, class_to_idx
+    return dataset_dicts
 
 
 def main(args):
     # TODO: use GroupKFold https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html
     # to split the train/test/val datasets
     # Accumulate train
-    dataset_dicts_train, class_to_idx = accumulate_imagenet_json(args.root, phase='train')
+    dataset_dicts_train = accumulate_imagenet_json(args.root, phase='train')
     # Accumulate val
-    dataset_dicts_val, _ = accumulate_imagenet_json(args.root, phase='test')
+    dataset_dicts_val = accumulate_imagenet_json(args.root, phase='test')
     # Save
-    with open(osp.join(args.save, "imagenet_detectron2_train.json"), "w") as w_obj:
+    with open(os.path.join(args.save, "imagenet_detectron2_train.json"), "w") as w_obj:
         json.dump(dataset_dicts_train, w_obj)
-    with open(osp.join(args.save, "imagenet_detectron2_val.json"), "w") as w_obj:
+    with open(os.path.join(args.save, "imagenet_detectron2_val.json"), "w") as w_obj:
         json.dump(dataset_dicts_val, w_obj)
 
 
