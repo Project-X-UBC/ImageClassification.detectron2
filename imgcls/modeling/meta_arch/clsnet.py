@@ -1,35 +1,17 @@
-'''
+"""
 @Copyright (c) tkianai All Rights Reserved.
 @Author         : tkianai
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 16:20:01
 @FilePath       : /ImageCls.detectron2/imgcls/modeling/meta_arch/clsnet.py
-@Description    : 
-'''
+@Description    :
+"""
 
 import torch
-import torch.nn as nn
-import logging
-import math
-import numpy as np
-from typing import List
-import torch
-from fvcore.nn import sigmoid_focal_loss_jit, smooth_l1_loss
-from torch import nn
-
-from detectron2.layers import ShapeSpec, batched_nms, cat
-from detectron2.structures import Boxes, ImageList, Instances, pairwise_iou
-from detectron2.utils.events import get_event_storage
-from detectron2.utils.logger import log_first_n
-from detectron2.modeling.meta_arch.build import META_ARCH_REGISTRY
 from detectron2.modeling.backbone import build_backbone
-from detectron2.modeling.anchor_generator import build_anchor_generator
-from detectron2.modeling.box_regression import Box2BoxTransform
-from detectron2.modeling.matcher import Matcher
-from detectron2.modeling.postprocessing import detector_postprocess
-from detectron2.modeling.meta_arch.retinanet import permute_to_N_HWA_K
-from detectron2.structures.keypoints import Keypoints
 from detectron2.modeling.meta_arch.build import META_ARCH_REGISTRY
+from detectron2.structures import ImageList
+from torch import nn
 
 
 @META_ARCH_REGISTRY.register()
@@ -62,7 +44,7 @@ class ClsNet(nn.Module):
     def forward(self, batched_inputs):
         images = self.preprocess_image(batched_inputs)
         gt_labels = [x['label'] for x in batched_inputs]
-        gt_labels = torch.as_tensor(gt_labels, dtype=torch.long).to(self.device)
+        gt_labels = torch.as_tensor(gt_labels, dtype=torch.float).to(self.device)
         features = self.bottom_up(images.tensor)
         features = [features[f] for f in self.in_features]
 
@@ -70,22 +52,17 @@ class ClsNet(nn.Module):
             losses = self.losses(gt_labels, features)
             return losses
         else:
-            results = self.inference(features)
+            results = features[0]
             processed_results = []
-            for results_per_image, input_per_image, image_size in zip(
-                    results, batched_inputs, images.image_sizes
-            ):
-                processed_results.append({"pred_classes": results_per_image})
+            for results_per_image in results:
+                processed_results.append({"pred": results_per_image})
             return processed_results
 
-    # TODO: f used by image net in train_net.py
-    def forward_imgnet(self, images):
-        features = self.bottom_up(images)
-        return features["linear"]
-
-    def inference(self, features, topk=1):
-        _, pred = features[0].topk(topk, 1, True, True)
-        return pred
+    # used in train_net.py
+    # def forward(self, images):
+    #     features = self.bottom_up(images)
+    #     return features["linear"]
 
     def losses(self, gt_labels, features):
         return {"loss_cls": self.criterion(features[0], gt_labels)}
+

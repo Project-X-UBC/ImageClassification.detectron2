@@ -53,7 +53,7 @@ class Trainer(DefaultTrainer):
         """
         if output_folder is None:
             output_folder = os.path.join(cfg.OUTPUT_DIR, "inference")
-        return ImageNetEvaluator(dataset_name, cfg, True, output_folder)  # TODO: most likely need to modify evaluator
+        return ImageNetEvaluator(dataset_name, True, output_folder)  # TODO: most likely need to modify evaluator
 
     # TODO: wont work for model
     # TODO: modfiy

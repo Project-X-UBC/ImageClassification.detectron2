@@ -22,11 +22,11 @@ SOLVER:
   IMS_PER_BATCH: 64
   BASE_LR: 0.1
   STEPS: (150000, 180000) # The iteration number to decrease learning rate by GAMMA.
-  MAX_ITER: 200 # epochs?
+  MAX_ITER: 20 # maximum number of iterations (same as epoch?)
 INPUT:
   CROP:
     ENABLED: False
 VERSION: 2
 TEST:
   AUG:
-    ENABLED: True
+    ENABLED: False
