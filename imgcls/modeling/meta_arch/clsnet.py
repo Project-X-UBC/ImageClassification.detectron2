@@ -58,11 +58,6 @@ class ClsNet(nn.Module):
                 processed_results.append({"pred": results_per_image})
             return processed_results
 
-    # used in train_net.py
-    # def forward(self, images):
-    #     features = self.bottom_up(images)
-    #     return features["linear"]
-
     def losses(self, gt_labels, features):
         return {"loss_cls": self.criterion(features[0], gt_labels)}
 

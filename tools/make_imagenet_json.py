@@ -1,11 +1,11 @@
-'''
+"""
 @Copyright (c) tkianai All Rights Reserved.
 @Author         : tkianai
 @Github         : https://github.com/tkianai
 @Date           : 2020-04-26 17:27:16
 @FilePath       : /ImageCls.detectron2/tools/make_imagenet_json.py
-@Description    : 
-'''
+@Description    :
+"""
 
 import re
 import os
@@ -58,7 +58,7 @@ def accumulate_imagenet_json(image_root, phase):
         # height, width = cv2.imread(filename).shape[:2]
 
         record = {
-            "file_name": os.path.abspath(filename),  # Using abs path, ignore image root, less flexibility
+            "file_name": os.path.abspath(filename),  # Using abs path, ignore image root, less flexibility # FIXME change to key file_path
             "image_id": idx,  # fake data only has a max of 1 transformed grid segment
             "label": get_multi_label_array(imgs_anns[v]["index"]),
         }

@@ -19,7 +19,7 @@ from detectron2.evaluation import (
 )
 
 from imgcls.config import get_cfg
-import imgcls.modeling # need this import to initialize modeling package
+import imgcls.modeling  # need this import to initialize modeling package
 from imgcls.data import DatasetMapper
 from imgcls.evaluation.imagenet_evaluation import ImageNetEvaluator
 
